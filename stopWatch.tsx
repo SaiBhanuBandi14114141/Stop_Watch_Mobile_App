@@ -24,6 +24,7 @@ const StopWatch = () => {
     }, 1000);
     return intervalId;
   };
+  
   const onStartClick = () => {
     if (buttonName === 'Start') {
       setButtonName('Stop');
@@ -41,11 +42,13 @@ const StopWatch = () => {
       lapData.length = 0;
     }
   };
+  
   const onLapClick = () => {
     setMinutesLapData(minutes < 10 ? `0${minutes}` : minutes.toString());
     setSecondsLapData(seconds < 10 ? `0${seconds}` : seconds.toString());
     lapData.push({key: minutesLapData + ' : ' + secondsLapData});
   };
+  
   const Item = (ld: any) => {
     return (
       <View style={Styles.flex}>
@@ -54,6 +57,7 @@ const StopWatch = () => {
       </View>
     );
   };
+  
   return (
     <View style={Styles.mainContainer}>
       <Text style={Styles.header}>Stop Watch</Text>
