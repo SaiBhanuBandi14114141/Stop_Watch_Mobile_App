@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import {Styles} from '../styles/stopWatch.styles';
+import {Styles} from './styles';
 let lapData: Object[] = [];
 
 const StopWatch = () => {
@@ -18,13 +18,17 @@ const StopWatch = () => {
     }
   }, [seconds]);
 
+  useEffect(() => {
+    lapData.push({key: minutesLapData + ' : ' + secondsLapData});
+  }, [minutesLapData, secondsLapData]);
+
   const returnId = () => {
     const intervalId = setInterval(() => {
       setSeconds(prev => prev + 1);
     }, 1000);
     return intervalId;
   };
-  
+
   const onStartClick = () => {
     if (buttonName === 'Start') {
       setButtonName('Stop');
@@ -42,13 +46,12 @@ const StopWatch = () => {
       lapData.length = 0;
     }
   };
-  
+
   const onLapClick = () => {
     setMinutesLapData(minutes < 10 ? `0${minutes}` : minutes.toString());
     setSecondsLapData(seconds < 10 ? `0${seconds}` : seconds.toString());
-    lapData.push({key: minutesLapData + ' : ' + secondsLapData});
   };
-  
+
   const Item = (ld: any) => {
     return (
       <View style={Styles.flex}>
@@ -57,7 +60,7 @@ const StopWatch = () => {
       </View>
     );
   };
-  
+
   return (
     <View style={Styles.mainContainer}>
       <Text style={Styles.header}>Stop Watch</Text>
@@ -79,7 +82,9 @@ const StopWatch = () => {
         {seconds < 10 ? `0${seconds}` : seconds}
       </Text>
       <View style={Styles.footer}>
-        <TouchableOpacity style={Styles.reset} onPress={onLapClick}
+        <TouchableOpacity
+          style={Styles.reset}
+          onPress={onLapClick}
           disabled={buttonName === 'Start' || buttonName === 'Reset'}>
           <Text style={Styles.fontSize}>Lap</Text>
         </TouchableOpacity>
