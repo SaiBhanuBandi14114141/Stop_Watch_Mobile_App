@@ -79,7 +79,8 @@ const StopWatch = () => {
         {seconds < 10 ? `0${seconds}` : seconds}
       </Text>
       <View style={Styles.footer}>
-        <TouchableOpacity style={Styles.reset} onPress={onLapClick}>
+        <TouchableOpacity style={Styles.reset} onPress={onLapClick}
+          disabled={buttonName === 'Start' || buttonName === 'Reset'}>
           <Text style={Styles.fontSize}>Lap</Text>
         </TouchableOpacity>
       </View>
