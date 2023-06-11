@@ -13,10 +13,13 @@ const StopWatch = () => {
 
   useEffect(() => {
     if (seconds === 59) {
+      if (minutes === 59) {
+        setMinutes(prevMin => prevMin - 60);
+      }
       setMinutes(prevMins => prevMins + 1);
       setSeconds(0);
     }
-  }, [seconds]);
+  }, [minutes, seconds]);
 
   useEffect(() => {
     lapData.push({key: minutesLapData + ' : ' + secondsLapData});
